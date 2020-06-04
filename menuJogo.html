@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<head><meta charset="UTF-8"><title>MENU</title>
+<style type="text/css">
+	@import url(http://fonts.googleapis.com/css?family=Walter+Turncoat);
+
+	.btn{
+		font-family: 'Walter Turncoat', cursive;
+		font-size: 14px;
+		text-transform: uppercase;
+		font-weight: 700;
+		border-radius: 10px;
+		border: none;
+		cursor: pointer;
+		box-shadow: 2px 2px 2px black;
+
+	}
+	.btn-orange{
+		background-color: #ff610d;
+		
+	}
+	.btn-orange:active{
+		position:relative;
+		top:5px;
+	}
+
+	.btn-orange:hover{
+		background-color: #e24e00;
+	}
+
+	.menu{
+		text-align: center;
+		margin-top: 40px;
+		font-size: 13pt;
+		color: #ff610d;
+		font-family: 'Walter Turncoat', cursive; 
+	}
+	h1{
+		text-align: center;
+		margin-top: 30px;
+		font-size: 22pt;
+		font-family: 'Walter Turncoat', cursive; 
+		font-weight: 400;
+		font-size: 30pt;
+		color: #ff610d;
+		text-shadow: 3px 3px 3px black;
+
+	}
+
+	.imagemZakk {
+		text-align: left;
+		height: 80;
+		width: 40;
+		margin-left: 60px;
+		margin-top: -100px;
+
+	}
+	.imagemFantasma{
+		text-align: right;
+		height: 80;
+		width: 40;
+		margin-right: 30px;
+		margin-top: -460px;
+	}
+
+	body{
+		background-image:url("Assets/Images/menu.png");
+		background-color: black;
+		background-size: 100% auto;
+		background-repeat: no-repeat;
+		text-shadow: 2px 2px 2px black;
+	}
+
+	footer p{
+		text-align: center;
+		font-size: 10pt;
+		font-family: 'Walter Turncoat', cursive;
+		text-shadow: 2px 2px 2px black;
+		margin-bottom: 20px;
+		color: #ff610d;
+
+	}
+	footer a{
+		text-decoration: none;
+		color: #ff610d;
+	}
+
+
+</style>
+</head>
+<script type="text/javascript">
+	function salvarNomes(){
+		var nomes = document.getElementById('nick').value;
+		localStorage.setItem('nicknames', nomes);
+		localStorage.getItem('nicknames');
+	}
+	
+	function comoJogar(){
+		var imgTuto = new Image();
+		imgTuto.src = "Assets/Images/goodD.jpg";
+	}
+	
+</script>
+
+<body>
+<h1 id="cabecalho">Zakk's Dreams</h1>
+<div class="menu">
+
+	<form id="formMenu">
+		Nome: <input type="text" id="nick" placeholder="Insira seu nome">
+		<input type="button" class="btn btn-orange" value="Salvar" onclick="salvarNomes();"></br>
+		<input type="button" class="btn btn-orange" value="Jogar" id="jogar" onclick="location.href = 'level1.html'">
+		</br>
+		<a href="Assets/Images/goodD.jpg" target="_blank">
+		<input type="button" class="btn btn-orange" value="Como Jogar" onclick="Assets/Images/goodD.jpg">
+		</a></br>
+		<a href="Assets/Images/historia.png" target="_blank">
+		<input type="button" class="btn btn-orange" value="História do Jogo" onclick="Assets/Images/historia.png">
+		</a>
+	</form>
+</div>
+
+</body>
+</html>

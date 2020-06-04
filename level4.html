@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<head>
+<meta charset="UTF-8"><title>Level 4 - Zakk's Dreams</title>
+<style>
+@import url(http://fonts.googleapis.com/css?family=Walter+Turncoat);
+.canvas{
+	background: url(Assets/Images/bg4.jpg);
+}
+
+div{
+		text-align: center;
+		margin-top: 20px;
+	}
+
+h1{
+	text-align: center;
+	font-family: 'Walter Turncoat', cursive; 
+	color: #ff610d;
+}	
+
+</style>
+</head>
+<body bgcolor="black">
+	<h1>Zakk's Dream</h1>
+<div>
+<canvas class="canvas" id="myCanvas" width="1150" height="500"></canvas>
+</div>
+</body>
+<script type="text/javascript">
+	
+
+	var gameCanvas = document.getElementById("myCanvas");
+	var ctx = gameCanvas.getContext("2d");
+	var pontos = 0;
+	var colisao = false;
+	//Informações do Zakk
+	var posicaoZakkX = 0;
+	var posicaoZakkY = 420;
+	var velocidadeZakk = 15;
+	var larguraZakk = 67;
+	var alturaZakk = 57;
+	
+	//Informações do Fantasma
+	var posicaoFantasmaX = gameCanvas.width+30;
+	var posicaoFantasmaY = Math.random()*gameCanvas.height;
+	var velocidadeFantasma = 25;
+	
+	//Audio pra quando o Zakk pegar o fantasma
+	var beep = new Audio();
+	beep.src = "Assets/Sound/beep.mp3";
+	
+	//Musica que toca enquanto joga
+	var halloween = new Audio();
+	halloween.src = "Assets/Sound/halloween.mp3";
+	halloween.loop == true;
+
+	//Definindo a maneira como a função será ativada (onload)
+	window.onload = desenhaZakk(posicaoZakkX, posicaoZakkY);
+	window.onload = halloween.play();
+	
+	// Setando o intervalo do gameloop
+	setInterval(atualiza, 40);
+
+	//Função que cria o Zakk
+	function desenhaZakk(posicaoZakkX, posicaoZakkY){
+		var imgZakk = new Image();
+		imgZakk.src = "Assets/Images/zakkSprite.png";
+		imgZakk.onload = function (){
+		ctx.drawImage(imgZakk, posicaoZakkX, posicaoZakkY);
+		}
+		document.addEventListener('keydown', movimento);
+	}
+	//Função que cria o Fantasma 
+	function desenhaFantasma(posicaoFantasmaX, posicaoFantasmaY){
+		var imgFantasma = new Image();
+		imgFantasma.src = "Assets/Images/ghost3.png";
+		imgFantasma.onload = function (){
+		ctx.drawImage(imgFantasma, posicaoFantasmaX, posicaoFantasmaY);
+		}
+	} 
+
+	//Função que define as teclas pra movimento 
+	function movimento(event){
+		if(event.keyCode ==38){ // seta para cima
+		    posicaoZakkY -= velocidadeZakk ;
+			// valida para que o personagem não saia da tela
+			if (posicaoZakkY < 0)
+				posicaoZakkY = 0;
+		}
+		if(event.keyCode ==40){ // seta para baixo
+			posicaoZakkY += velocidadeZakk;
+			// valida para que o personagem não saia da tela
+			if (posicaoZakkY > gameCanvas.height-77)
+				posicaoZakkY = gameCanvas.height-77;
+		}
+		
+		
+				
+	} 
+
+	// essa função deve conter as animações que vão acontecer no game
+	// no caso, a aparição dos fantasmas
+	function atualiza(){
+		ctx.clearRect(0,0,gameCanvas.width, gameCanvas.height);
+		desenhaZakk(posicaoZakkX, posicaoZakkY);
+		
+		//Criando o respawn dos fanstasmas 
+		if(posicaoFantasmaX <= larguraZakk){
+			posicaoFantasmaX = 1150;		
+			posicaoFantasmaY = Math.random()*gameCanvas.height;
+
+		if(posicaoFantasmaY > gameCanvas.height-52) { posicaoFantasmaY = gameCanvas.height-52}
+		}
+		else {
+			posicaoFantasmaX -= velocidadeFantasma;
+			colisao = false;
+		}
+		//
+			ctx.clearRect(0, 0, gameCanvas.width, gameCanvas.height);
+			desenhaFantasma(posicaoFantasmaX, posicaoFantasmaY);
+		
+		// Validando a colisao para gerar pontos
+		if((posicaoFantasmaX > posicaoZakkX && posicaoFantasmaX < posicaoZakkX + larguraZakk) 
+		&& (posicaoFantasmaY <= posicaoZakkY + alturaZakk && posicaoFantasmaY >= posicaoZakkY - alturaZakk && colisao == false)) { 
+				beep.play();
+				pontos += 10;				
+				colisao = true;
+			}
+		//Mostrando os pontos
+		ctx.font = "32pt Tahoma";
+		ctx.fillText(pontos, gameCanvas.width -70,50);
+
+		if(pontos==100){
+			passaFase();
+		}
+			
+			
+	}
+
+	function passaFase(){
+		window.location="level5.html";
+	}
+
+
+</script>
+</html>
