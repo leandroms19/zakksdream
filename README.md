@@ -1,3 +1,3 @@
 # zakksdream
 
-Para conseguir jogar o jogo, por favor baixar o arquivo WinRaR e iniciar o arquivo menuJogo.html.
+Para conseguir jogar o jogo, por favor baixar o arquivo zakksDream.zip e iniciar o arquivo menuJogo.html!
